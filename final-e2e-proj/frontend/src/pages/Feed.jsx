@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 // import SearchIcon from '@material-ui/icons/Search';
-import { socketService } from '../services/socketService'
+import { loadMsgs, addMsg } from '../store/actions/msgActions'
 
 
 class _Feed extends Component {
@@ -40,10 +40,8 @@ class _Feed extends Component {
         ],
     }
 
-    componentDidMount() {
-        //   socketService.setup()
-        //   socketService.emit('chat topic', this.state.topic)
-        //   socketService.on('chat addMsg', this.addMsg)
+    async componentDidMount() {
+        await this.props.loadMsgs({})
     }
 
     componentWillUnmount() {
@@ -52,9 +50,12 @@ class _Feed extends Component {
         //   clearTimeout(this.timeout)
     }
 
-    sendMsg = ev => {
+    sendMsg = async ev => {
         ev.preventDefault()
         console.log('saving msg:', this.state.newMsg)
+        await addMsg(this.state.newMsg)
+        // await this.props.loadMsgs({})
+
         // msgService.sendMsg(this.state.newMsg)
         //   socketService.emit('chat newMsg', { from, txt: this.state.msg.txt })
         //   this.setState({ msg: { from: 'Me', txt: '' } })
@@ -72,13 +73,14 @@ class _Feed extends Component {
             }
         })
     }
-    handleFilterChange = ev => {
+    handleFilterChange = async ev => {
         this.setState(prevState => {
             return {
                 ...prevState,
                 filterBy: ev.target.value
             }
         })
+        await this.props.loadMsgs(this.state.filterBy)
     }
 
     msgHandleChange = ev => {
@@ -94,7 +96,9 @@ class _Feed extends Component {
     }
 
     render() {
-        const { msgs, newMsg, filterBy } = this.state
+        const { newMsg, filterBy } = this.state
+        const { msgs } = this.props
+        console.log (msgs)
         return (
             <section className="feed">
 
@@ -130,13 +134,13 @@ class _Feed extends Component {
                 <ul className="feed-messages clean-list">
                     {msgs.map(msg => {
                         return (
-                            <li key={msg.id} className="flex">
+                            <li key={msg.id} className="flex align-center">
                                 <div className="avatar">
 
-                                    <img src={msg.miniuser.imgUrl} alt="" />
+                                    {msg.imgUrl && <img src={msg.imgUrl} alt="" />}
                                 </div>
                                 <div className="flex column">
-                                    <h4>{msg.miniuser.email}</h4>
+                                    <h4>{msg.email}</h4>
                                     <p>{msg.txt}</p>
                                 </div>
                             </li>
@@ -152,12 +156,12 @@ class _Feed extends Component {
 
 const mapStateToProps = state => {
     return {
-        //   loggedInUser: state.userModule.loggedInUser
+        msgs: state.msgModule.msgs
     }
 }
 const mapDispatchToProps = {
-    // loadMsgs
-    // setFilterBy
+    loadMsgs,
+    addMsg
 }
 
 export const Feed = connect(mapStateToProps, mapDispatchToProps)(_Feed)

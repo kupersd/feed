@@ -33,14 +33,19 @@
             display: block;
             outline: none;
             border: none;
+            cursor: pointer;
+            transition: .2s;
+
+            &:hover {
+                background-color: rgb(16, 124, 212);
+            }
         }
     }
     .filter {
-
-        padding: 1rem;
+        padding: 1rem 1rem 0 1rem;
     }
     .feed-messages {
-        padding: 1rem;
+        padding: 0 1rem 1rem;
 
         li {
             // background-color: salmon;
@@ -58,9 +63,12 @@
     
 
     .avatar {
-    background-color: red;
+    // background-color: red;
     width: 40px;
     height: 40px;
+    border-radius: 4px;
+    margin-inline-end: 1rem;
+    overflow: hidden;
     }
     img {
         width: 100%;
