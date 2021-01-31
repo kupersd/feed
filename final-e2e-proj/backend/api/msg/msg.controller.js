@@ -29,6 +29,7 @@ async function addMsg(req, res) {
         var msg = req.body
         msg = await msgService.add(msg)
         res.send(msg)
+
         broadcast({ type: 'newMsg', data: msg })
 
     } catch (err) {

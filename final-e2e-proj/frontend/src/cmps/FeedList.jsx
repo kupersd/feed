@@ -1,4 +1,4 @@
-export function FeedList({ msgs }) {
+export function FeedList({ msgs, onRemoveMsg }) {
     return (
         <ul className="feed-messages clean-list">
             {msgs.map(msg => {
@@ -12,6 +12,7 @@ export function FeedList({ msgs }) {
                             <h4>{msg.email}</h4>
                             <p>{msg.txt}</p>
                         </div>
+                        <button onClick={() => onRemoveMsg(msg._id)}>X</button>
                     </li>
                 )
             }
