@@ -18,9 +18,8 @@ class _Feed extends Component {
 
     onAddMsg = async ev => {
         ev.preventDefault()
-        console.log('saving msg:', this.state.msg)
         try {
-            await addMsg(this.state.msg)
+            await this.props.addMsg(this.state.msg)
         } catch (err) {
             console.log(err)
         }
