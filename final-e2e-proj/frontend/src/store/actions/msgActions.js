@@ -23,6 +23,16 @@ export function addMsg(msg) {
   }
 }
 
+export function showNewMsg(msg) {
+  return async dispatch => {
+    try {
+      dispatch({ type: 'ADD_MSG', msg})
+    } catch (err) {
+      console.log('MsgActions: err in addMsg', err)
+    }
+  }
+}
+
 export function removeMsg(msgId) {
   return async dispatch => {
     try {
