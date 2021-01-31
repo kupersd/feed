@@ -98,10 +98,10 @@ class _Feed extends Component {
                             <li key={msg.id} className="flex align-center">
                                 <div className="avatar">
 
-                                    {msg.miniuser.imgUrl && <img src={msg.miniuser.imgUrl} alt="" />}
+                                    <img src={`https://www.gravatar.com/avatar/${_hashCode('ori.weinstock@gmail.com')}`} alt="" />
                                 </div>
                                 <div className="flex column">
-                                    <h4>{msg.miniuser.email}</h4>
+                                    <h4>{msg.email}</h4>
                                     <p>{msg.txt}</p>
                                 </div>
                             </li>
@@ -126,3 +126,29 @@ const mapDispatchToProps = {
 }
 
 export const Feed = connect(mapStateToProps, mapDispatchToProps)(_Feed)
+
+function _hashCode(str){
+    var hash = 0;
+    let char = '';
+    if (str.length == 0) return hash;
+    for (let i = 0; i < str.length; i++) {
+        char = str.charCodeAt(i);
+        hash = ((hash<<5)-hash)+char;
+        hash = hash & hash; // Convert to 32bit integer
+    }
+    return hash;
+}
+
+
+function _hash(str) {
+    var hash = 0;
+    if (str.length == 0) {
+        return hash;
+    }
+    for (var i = 0; i < str.length; i++) {
+        var char = str.charCodeAt(i);
+        hash = ((hash<<5)-hash)+char;
+        hash = hash & hash; // Convert to 32bit integer
+    }
+    return hash;
+}
