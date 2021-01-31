@@ -26,10 +26,7 @@ async function deleteMsg(req, res) {
 async function addMsg(req, res) {
     try {
         var msg = req.body
-        msg.byUserId = req.session.user._id
         msg = await msgService.add(msg)
-        msg.byUser = req.session.user
-        msg.aboutUser = await userService.getById(msg.aboutUserId)
         res.send(msg)
 
     } catch (err) {

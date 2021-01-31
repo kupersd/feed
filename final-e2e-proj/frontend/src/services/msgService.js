@@ -18,8 +18,9 @@ const imgURL3 = 'https://tinyfac.es/data/avatars/A7299C8E-CEFC-47D9-939A-3C8CA0E
 
 function query(filterBy) {
   var queryStr = (!filterBy) ? '' : `?name=${filterBy.name}&sort=anaAref`
-  return Promise.resolve([{ txt: 'Hi' , email: 'puki', imgUrl: imgURL1}, { txt: 'Hi MOSHE' , email: 'puki DA', imgUrl: imgURL2} ])
-  // return httpService.get(`msg${queryStr}`)
+  console.log(filterBy);
+  // return Promise.resolve([{ txt: 'Hi' , email: 'puki', imgUrl: imgURL1}, { txt: 'Hi MOSHE' , email: 'puki DA', imgUrl: imgURL2} ])
+  return httpService.get(`msg${queryStr}`)
   // return Promise.resolve([{ txt: 'Hi' , email: 'puki', imgUrl: 'www.image.com'}, { txt: 'Hi MOSHE' , email: 'puki DA', imgUrl: 'www.image1234.com'} ])
   return httpService.get(`msg${queryStr}`)
   // return storageService.query('msg')
@@ -31,6 +32,7 @@ function remove(msgId) {
 
 }
 async function add(msg) {
+
   const addedMsg = await httpService.post(`msg`, msg)
 
   // msg.byUser = userService.getLoggedinUser()

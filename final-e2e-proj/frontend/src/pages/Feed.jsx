@@ -15,7 +15,7 @@ class _Feed extends Component {
     sendMsg = async ev => {
         ev.preventDefault()
         console.log('saving msg:', this.state.msg)
-        await addMsg(this.state.msg)
+        await this.props.addMsg(this.state.msg)
         // await this.props.loadMsgs({})
 
         // msgService.sendMsg(this.state.msg)
@@ -98,10 +98,10 @@ class _Feed extends Component {
                             <li key={msg.id} className="flex align-center">
                                 <div className="avatar">
 
-                                    {msg.miniuser.imgUrl && <img src={msg.miniuser.imgUrl} alt="" />}
+                                    {msg.imgUrl && <img src={msg.imgUrl} alt="" />}
                                 </div>
                                 <div className="flex column">
-                                    <h4>{msg.miniuser.email}</h4>
+                                    <h4>{msg.email}</h4>
                                     <p>{msg.txt}</p>
                                 </div>
                             </li>

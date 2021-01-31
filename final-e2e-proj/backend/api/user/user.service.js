@@ -1,13 +1,14 @@
 
 const dbService = require('../../services/db.service')
 // const logger = require('../../services/logger.service')
-const reviewService = require('../msg/msg.service')
+const msgService = require('../msg/msg.service')
 const ObjectId = require('mongodb').ObjectId
 
 module.exports = {
     query,
     getById,
     getByUsername,
+    getByEmail,
     remove,
     update,
     add
@@ -62,6 +63,17 @@ async function getByUsername(username) {
     }
 }
 
+async function getByEmail(email) {
+    try {
+        const collection = await dbService.getCollection('user')
+        const user = await collection.findOne({ email })
+        return user
+    } catch (err) {
+        logger.error(`while finding user ${email}`, err)
+        throw err
+    }
+}
+
 async function remove(userId) {
     try {
         const collection = await dbService.getCollection('user')
@@ -92,16 +104,9 @@ async function update(user) {
 
 async function add(user) {
     try {
-        // peek only updatable fields!
-        const userToAdd = {
-            username: user.username,
-            password: user.password,
-            fullname: user.fullname,
-            score: user.score || 0
-        }
         const collection = await dbService.getCollection('user')
-        await collection.insertOne(userToAdd)
-        return userToAdd
+        await collection.insertOne(user)
+        return user
     } catch (err) {
         logger.error('cannot insert user', err)
         throw err
