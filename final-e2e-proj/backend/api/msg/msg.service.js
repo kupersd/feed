@@ -32,14 +32,9 @@ async function remove(msgId) {
 
 async function add(msg) {
     try {
-        const msgToAdd = {
-            byUserId: ObjectId(msg.byUserId),
-            aboutUserId: ObjectId(msg.aboutUserId),
-            txt: msg.txt
-        }
         const collection = await dbService.getCollection('msg')
-        await collection.insertOne(msgToAdd)
-        return msgToAdd;
+        await collection.insertOne(msg)
+        return msg
     } catch (err) {
         logger.error('cannot insert msg', err)
         throw err

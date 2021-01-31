@@ -1,0 +1,21 @@
+{
+    "message": [
+        {
+            "_id": "o1225",
+            "miniuser": {
+                "_id": "u101",
+                "email": "puki",
+                "imgUrl": "www.image.com"        
+            },
+            "txt": "lorem"
+            
+        }
+    ],
+    "user": [
+        {
+        "_id": "u101",
+        "email": "puki",
+        "imgUrl": "www.image.com"
+        }
+    ]
+}
