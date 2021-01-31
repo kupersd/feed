@@ -1,5 +1,4 @@
 const logger = require('../../services/logger.service')
-const userService = require('../user/user.service')
 const msgService = require('./msg.service')
 
 async function getMsgs(req, res) {

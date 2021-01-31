@@ -17,13 +17,9 @@ const imgURL3 = 'https://tinyfac.es/data/avatars/A7299C8E-CEFC-47D9-939A-3C8CA0E
 // return axios.get('api/toy/?', {params: {id: 1223, balanse:13}})
 
 function query(filterBy) {
-  var queryStr = (!filterBy) ? '' : `?name=${filterBy.name}&sort=anaAref`
-  console.log(filterBy);
-  // return Promise.resolve([{ txt: 'Hi' , email: 'puki', imgUrl: imgURL1}, { txt: 'Hi MOSHE' , email: 'puki DA', imgUrl: imgURL2} ])
+  var queryStr = (!filterBy) ? '' : `?txt=${filterBy.txt}`
   return httpService.get(`msg${queryStr}`)
-  // return Promise.resolve([{ txt: 'Hi' , email: 'puki', imgUrl: 'www.image.com'}, { txt: 'Hi MOSHE' , email: 'puki DA', imgUrl: 'www.image1234.com'} ])
-  return httpService.get(`msg${queryStr}`)
-  // return storageService.query('msg')
+  
 }
 
 function remove(msgId) {

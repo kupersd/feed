@@ -1,9 +1,9 @@
 import { msgService } from '../../services/msgService'
 
-export function loadMsgs() {
+export function loadMsgs(filter) {
   return async dispatch => {
     try {
-      const msgs = await msgService.query()
+      const msgs = await msgService.query(filter)
       dispatch({ type: 'SET_MSGS', msgs: msgs })
 
     } catch (err) {

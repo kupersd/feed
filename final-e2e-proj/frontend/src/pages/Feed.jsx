@@ -9,7 +9,7 @@ class _Feed extends Component {
     }
 
     async componentDidMount() {
-        await this.props.loadMsgs({})
+        await this.props.loadMsgs()
       }
 
     sendMsg = async ev => {
@@ -36,13 +36,7 @@ class _Feed extends Component {
         })
     }
     handleFilterChange = async ev => {
-        this.setState(prevState => {
-            return {
-                ...prevState,
-                filterBy: ev.target.value
-            }
-        })
-        await this.props.loadMsgs(this.state.filterBy)
+        await this.props.loadMsgs({txt: ev.target.value})
     }
 
     msgHandleChange = ev => {
@@ -89,13 +83,13 @@ class _Feed extends Component {
                         type="text"
                         name="filterBy"
                         onChange={this.handleFilterChange}
-                        placeholder="Filter"
-                        value={filterBy} />
+                        placeholder="Search"
+                        />
                 </div>
                 <ul className="feed-messages clean-list">
                     {msgs.map(msg => {
                         return (
-                            <li key={msg.id} className="flex align-center">
+                            <li key={msg._id} className="flex align-center">
                                 <div className="avatar">
 
                                     {msg.imgUrl && <img src={msg.imgUrl} alt="" />}

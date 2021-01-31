@@ -1,14 +1,12 @@
 const dbService = require('../../services/db.service')
 const ObjectId = require('mongodb').ObjectId
-const asyncLocalStorage = require('../../services/als.service')
-var crypto = require('crypto');
+var gravatar = require('gravatar');
 
 async function query(filterBy = {}) {
-    console.log(filterBy);
     try {
-        const criteria = _buildCriteria(filterBy)
+        const criteria = _buildCriteria(filterBy) || {}
         const collection = await dbService.getCollection('msg')
-        const msgs = await collection.find().toArray()
+        const msgs = await collection.find(criteria).toArray()
         return msgs
     } catch (err) {
         logger.error('cannot find msgs', err)
@@ -35,10 +33,10 @@ async function remove(msgId) {
 async function add(msg) {
     console.log('service got req');
     try {
-        var hash = crypto.createHash('md5').update(msg.email).digest('hex');
-        console.log(hash)
-        msg.imgUrl = `https://www.gravatar.com/avatar/${hash}.jpg`
-        // msg.imgUrl = 'https://robohash.org' + msg.email
+       
+        // msg.imgUrl =  gravatar.url(msg.email)
+        msg.imgUrl = `https://robohash.org/${msg.email}?set=set5`
+        console.log(msg.imgUrl)
         const collection = await dbService.getCollection('msg')
         await collection.insertOne(msg)
         return msg
@@ -50,7 +48,7 @@ async function add(msg) {
 
 function _buildCriteria(filterBy) {
     const criteria = {}
-    if (!filterBy.txt) return criteria
+    if (!filterBy.txt) return null
     const txtCriteria = { $regex: filterBy.txt, $options: 'i' }
     criteria.$or = [
         {
