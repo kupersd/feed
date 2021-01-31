@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { MsgFilter } from '../cmps/MsgFilter'
-import { socketService } from '../services/socketService'
 import { loadMsgs } from '../store/actions/msgActions'
 
 class _Feed extends Component {
@@ -57,4 +56,4 @@ const mapDispatchToProps = {
   loadMsgs
 }
 
-export const Feed = connect(mapStateToProps, mapDispatchToProps)(_Feed)
+export const BackendFeed = connect(mapStateToProps, mapDispatchToProps)(_Feed)

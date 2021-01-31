@@ -20,6 +20,8 @@ function query(filterBy) {
   var queryStr = (!filterBy) ? '' : `?name=${filterBy.name}&sort=anaAref`
   return Promise.resolve([{ txt: 'Hi' , email: 'puki', imgUrl: imgURL1}, { txt: 'Hi MOSHE' , email: 'puki DA', imgUrl: imgURL2} ])
   // return httpService.get(`msg${queryStr}`)
+  // return Promise.resolve([{ txt: 'Hi' , email: 'puki', imgUrl: 'www.image.com'}, { txt: 'Hi MOSHE' , email: 'puki DA', imgUrl: 'www.image1234.com'} ])
+  return httpService.get(`msg${queryStr}`)
   // return storageService.query('msg')
 }
 
