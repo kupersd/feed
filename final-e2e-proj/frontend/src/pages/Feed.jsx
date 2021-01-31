@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { FeedList } from '../cmps/FeedList'
-import { loadMsgs, addMsg } from '../store/actions/msgActions'
+import { socketService } from '../services/socketService'
+import { loadMsgs, addMsg, showNewMsg } from '../store/actions/msgActions'
 
 class _Feed extends Component {
     state = {
@@ -9,12 +10,17 @@ class _Feed extends Component {
     }
 
     async componentDidMount() {
+        socketService.on('newMsg' ,this.onNewMsg)
         try {
             await this.props.loadMsgs()
         } catch (err) {
             console.log(err)
         }
       }
+
+    onNewMsg = (msg) => {
+        this.props.showNewMsg(msg)
+    }
 
     onAddMsg = async ev => {
         ev.preventDefault()
@@ -93,7 +99,8 @@ const mapStateToProps = state => {
 }
 const mapDispatchToProps = {
     loadMsgs,
-    addMsg
+    addMsg,
+    showNewMsg
 }
 
 export const Feed = connect(mapStateToProps, mapDispatchToProps)(_Feed)

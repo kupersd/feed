@@ -1,5 +1,6 @@
 const logger = require('../../services/logger.service')
 const msgService = require('./msg.service')
+const { broadcast } = require('../../services/socket.service')
 
 async function getMsgs(req, res) {
     try {
@@ -28,6 +29,7 @@ async function addMsg(req, res) {
         var msg = req.body
         msg = await msgService.add(msg)
         res.send(msg)
+        broadcast({ type: 'newMsg', data: msg })
 
     } catch (err) {
         logger.error('Failed to add msg', err)
