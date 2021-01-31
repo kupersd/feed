@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { MsgFilter } from '../cmps/MsgFilter'
+import { FeedList } from '../cmps/FeedList'
 import { loadMsgs, addMsg } from '../store/actions/msgActions'
 
 class _Feed extends Component {
@@ -9,13 +9,21 @@ class _Feed extends Component {
     }
 
     async componentDidMount() {
-        await this.props.loadMsgs({})
+        try {
+            await this.props.loadMsgs({})
+        } catch (err) {
+            alert(err)
+        }
       }
 
     onAddMsg = async ev => {
         ev.preventDefault()
         console.log('saving msg:', this.state.msg)
-        await addMsg(this.state.msg)
+        try {
+            await addMsg(this.state.msg)
+        } catch (err) {
+            alert(err)
+        }
     }
 
     handleChange = ev => {
@@ -37,7 +45,11 @@ class _Feed extends Component {
                 filterBy: ev.target.value
             }
         })
-        await this.props.loadMsgs(this.state.filterBy)
+        try {
+            await this.props.loadMsgs(this.state.filterBy)
+        } catch (err) {
+            alert(err)
+        }
     }
 
     render() {
@@ -72,23 +84,8 @@ class _Feed extends Component {
                         placeholder="Filter"
                         value={filterBy} />
                 </div>
-                <ul className="feed-messages clean-list">
-                    {msgs.map((msg, idx) => {
-                        return (
-                            <li key={idx} className="flex align-center">
-                                <div className="avatar">
 
-                                    <img src={`https://www.gravatar.com/avatar/ori.weinstock@gmail.com}`} alt="" />
-                                </div>
-                                <div className="flex column">
-                                    <h4>{msg.email}</h4>
-                                    <p>{msg.txt}</p>
-                                </div>
-                            </li>
-                        )
-                    }
-                    )}
-                </ul>
+                <FeedList msgs={msgs} />
             </section>
         )
     }
