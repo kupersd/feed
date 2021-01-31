@@ -4,7 +4,7 @@
 
 html {
     font-family: montserrat;
-    line-height: 1.6;
+    line-height: 1.4;
 }
 
 body {
@@ -13,3 +13,8 @@ body {
     font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
 }
 
+button {
+    outline: none;
+    border: none;
+    cursor: pointer;
+}

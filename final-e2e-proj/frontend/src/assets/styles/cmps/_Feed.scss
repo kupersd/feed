@@ -1,7 +1,8 @@
 .feed {
     
     width: 50vw;
-    max-width: 400px;
+    max-width: 500px;
+    min-width: 330px;
     margin: 0 auto;
     padding: 1.5rem;
     background-color: #eee;
@@ -31,9 +32,6 @@
             border-radius: 4px;
             padding: 0.5rem 1rem;
             display: block;
-            outline: none;
-            border: none;
-            cursor: pointer;
             transition: .2s;
 
             &:hover {
@@ -46,15 +44,36 @@
     }
     .feed-messages {
         padding: 0 1rem 1rem;
+        overflow-y: scroll;
+        max-height: calc(100vh - 120px);
 
         li {
-            // background-color: salmon;
+            position: relative;
+            margin-bottom: 0.5rem;
+
+            &:hover button {
+                opacity: 1;
+            }
+            button {
+                opacity: 0;
+                position: absolute;
+                top: 0.5rem;
+                right: 0;
+                background-color: rgb(20, 149, 255);
+                padding: 5px;
+                transition: .2s;
+                color: white;
+
+            &:hover {
+                background-color: rgb(16, 124, 212);
+            }
+            }
         }
         p, h4 {
             margin: 0;
         }
         p {
-            color: #aaa;
+            color: #777;
         }
         h4 {
             color: #333
