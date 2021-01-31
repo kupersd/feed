@@ -1,9 +1,9 @@
 export function FeedList({ msgs }) {
     return (
         <ul className="feed-messages clean-list">
-            {msgs.map((msg, idx) => {
+            {msgs.map(msg => {
                 return (
-                    <li key={idx} className="flex align-center">
+                    <li key={msg._id} className="flex align-center">
                         <div className="avatar">
 
                             <img src={msg.imgUrl} alt="" />

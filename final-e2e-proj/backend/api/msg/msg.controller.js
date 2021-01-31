@@ -23,6 +23,7 @@ async function deleteMsg(req, res) {
 
 
 async function addMsg(req, res) {
+    console.log('controller got req')
     try {
         var msg = req.body
         msg = await msgService.add(msg)
