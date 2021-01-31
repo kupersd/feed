@@ -11,15 +11,10 @@ export function App() {
   return (
     <div className="app">
       <Router>
-        <header>
           <AppHeader />
-        </header>
-        <main>
           <Switch>
             <Route path="/" component={Feed} />
           </Switch>
-        </main>
-
       </Router>
     </div>
   )
