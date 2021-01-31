@@ -12,15 +12,10 @@ class _Feed extends Component {
         await this.props.loadMsgs({})
       }
 
-    sendMsg = async ev => {
+    onAddMsg = async ev => {
         ev.preventDefault()
         console.log('saving msg:', this.state.msg)
         await addMsg(this.state.msg)
-        // await this.props.loadMsgs({})
-
-        // msgService.sendMsg(this.state.msg)
-        //   socketService.emit('chat msg', { from, txt: this.state.msg.txt })
-        //   this.setState({ msg: { from: 'Me', txt: '' } })
     }
 
     handleChange = ev => {
@@ -45,25 +40,13 @@ class _Feed extends Component {
         await this.props.loadMsgs(this.state.filterBy)
     }
 
-    msgHandleChange = ev => {
-        const { name, value } = ev.target
-        this.setState(prevState => {
-            return {
-                msg: {
-                    ...prevState.msg,
-                    [name]: value
-                }
-            }
-        })
-    }
-
     render() {
         const { msg, filterBy } = this.state
         const { msgs } = this.props
         return (
             <section className="feed">
 
-                <form className="compose" onSubmit={this.sendMsg}>
+                <form className="compose" onSubmit={this.onAddMsg}>
                     <input
                         placeholder="Email"
                         type="text"
@@ -82,9 +65,6 @@ class _Feed extends Component {
                 </form>
 
                 <div className="filter">
-                    {/* <label htmlFor="filterBy"> */}
-                    {/* <SearchIcon /> */}
-                    {/* </label> */}
                     <input
                         type="text"
                         name="filterBy"
@@ -93,19 +73,18 @@ class _Feed extends Component {
                         value={filterBy} />
                 </div>
                 <ul className="feed-messages clean-list">
-                    {msgs.map(msg => {
+                    {msgs.map((msg, idx) => {
                         return (
-                            <li key={msg.id} className="flex align-center">
+                            <li key={idx} className="flex align-center">
                                 <div className="avatar">
 
-                                    <img src={`https://www.gravatar.com/avatar/${_hashCode('ori.weinstock@gmail.com')}`} alt="" />
+                                    <img src={`https://www.gravatar.com/avatar/ori.weinstock@gmail.com}`} alt="" />
                                 </div>
                                 <div className="flex column">
                                     <h4>{msg.email}</h4>
                                     <p>{msg.txt}</p>
                                 </div>
                             </li>
-
                         )
                     }
                     )}
@@ -126,29 +105,3 @@ const mapDispatchToProps = {
 }
 
 export const Feed = connect(mapStateToProps, mapDispatchToProps)(_Feed)
-
-function _hashCode(str){
-    var hash = 0;
-    let char = '';
-    if (str.length == 0) return hash;
-    for (let i = 0; i < str.length; i++) {
-        char = str.charCodeAt(i);
-        hash = ((hash<<5)-hash)+char;
-        hash = hash & hash; // Convert to 32bit integer
-    }
-    return hash;
-}
-
-
-function _hash(str) {
-    var hash = 0;
-    if (str.length == 0) {
-        return hash;
-    }
-    for (var i = 0; i < str.length; i++) {
-        var char = str.charCodeAt(i);
-        hash = ((hash<<5)-hash)+char;
-        hash = hash & hash; // Convert to 32bit integer
-    }
-    return hash;
-}
